@@ -2,21 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Voronkovich\SberbankAcquiring\HttpClient;
+namespace Gruzoveek\SberbankAcquiring\HttpClient;
 
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 
-/**
- * Adapter for the guzzle.
- *
- * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
- * @see http://docs.guzzlephp.org/en/latest/
- */
+
 class GuzzleAdapter implements HttpClientInterface
 {
-    private $client;
-    private $version;
+    private ClientInterface $client;
+    private int $version;
 
     public function __construct(ClientInterface $client)
     {

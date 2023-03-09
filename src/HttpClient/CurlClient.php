@@ -2,26 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Voronkovich\SberbankAcquiring\HttpClient;
+namespace Gruzoveek\SberbankAcquiring\HttpClient;
 
-use Voronkovich\SberbankAcquiring\Exception\NetworkException;
+use Gruzoveek\SberbankAcquiring\Exception\NetworkException;
 
-/**
- * Simple HTTP client using curl.
- *
- * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
- */
+
 class CurlClient implements HttpClientInterface
 {
-    /**
-     * @var resource
-     */
     private $curl;
 
-    /**
-     * @var array
-     */
-    private $curlOptions = [];
+    private array $curlOptions = [];
 
     public function __construct(array $curlOptions)
     {
@@ -32,9 +22,7 @@ class CurlClient implements HttpClientInterface
         $this->curlOptions = $curlOptions;
     }
 
-    /**
-     * @return resource
-     */
+
     private function getCurl()
     {
         if (null === $this->curl) {

@@ -2,18 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Voronkovich\SberbankAcquiring\Tests;
+namespace gruzoveek\SberbankAcquiring\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Voronkovich\SberbankAcquiring\Client;
-use Voronkovich\SberbankAcquiring\Exception\ActionException;
-use Voronkovich\SberbankAcquiring\Exception\BadResponseException;
-use Voronkovich\SberbankAcquiring\Exception\ResponseParsingException;
-use Voronkovich\SberbankAcquiring\HttpClient\HttpClientInterface;
+use gruzoveek\SberbankAcquiring\Client;
+use gruzoveek\SberbankAcquiring\Exception\ActionException;
+use gruzoveek\SberbankAcquiring\Exception\BadResponseException;
+use gruzoveek\SberbankAcquiring\Exception\ResponseParsingException;
+use gruzoveek\SberbankAcquiring\HttpClient\HttpClientInterface;
 
-/**
- * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
- */
+
 class ClientTest extends TestCase
 {
     public function testThrowsAnExceptionIfUnkownOptionProvided()
@@ -162,7 +160,7 @@ class ClientTest extends TestCase
             ->expects($this->once())
             ->method('request')
             ->with(
-                'https://github.com/voronkovich/sberbank-acquiring-client/payment/rest/testAction.do',
+                'https://github.com/gruzoveek/sberbank-acquiring-client/payment/rest/testAction.do',
                 HttpClientInterface::METHOD_GET
             )
         ;
@@ -172,7 +170,7 @@ class ClientTest extends TestCase
             'password' => 'qwerty123',
             'httpClient' => $httpClient,
             'httpMethod' => HttpClientInterface::METHOD_GET,
-            'apiUri' => 'https://github.com/voronkovich/sberbank-acquiring-client',
+            'apiUri' => 'https://github.com/gruzoveek/sberbank-acquiring-client',
         ]);
 
         $client->execute('/payment/rest/testAction.do');
@@ -242,7 +240,7 @@ class ClientTest extends TestCase
             '/payment/rest/register.do',
             'POST',
             [ 'Content-Type' => 'application/x-www-form-urlencoded' ],
-            'currency=330&orderNumber=eee-eee-eee&amount=1200&returnUrl=https%3A%2F%2Fgithub.com%2Fvoronkovich%2Fsberbank-acquiring-client&token=abrakadabra'
+            'currency=330&orderNumber=eee-eee-eee&amount=1200&returnUrl=https%3A%2F%2Fgithub.com%2Fgruzoveek%2Fsberbank-acquiring-client&token=abrakadabra'
         );
 
         $client = new Client([
@@ -250,7 +248,7 @@ class ClientTest extends TestCase
             'httpClient' => $httpClient,
         ]);
 
-        $client->registerOrder('eee-eee-eee', 1200, 'https://github.com/voronkovich/sberbank-acquiring-client', ['currency' => 330]);
+        $client->registerOrder('eee-eee-eee', 1200, 'https://github.com/gruzoveek/sberbank-acquiring-client', ['currency' => 330]);
     }
 
     public function testRegistersANewOrderWithCustomPrefix()
@@ -259,7 +257,7 @@ class ClientTest extends TestCase
             '/other/prefix/register.do',
             'POST',
             [ 'Content-Type' => 'application/x-www-form-urlencoded' ],
-            'currency=330&orderNumber=eee-eee-eee&amount=1200&returnUrl=https%3A%2F%2Fgithub.com%2Fvoronkovich%2Fsberbank-acquiring-client&token=abrakadabra'
+            'currency=330&orderNumber=eee-eee-eee&amount=1200&returnUrl=https%3A%2F%2Fgithub.com%2Fgruzoveek%2Fsberbank-acquiring-client&token=abrakadabra'
         );
 
         $client = new Client([
@@ -268,7 +266,7 @@ class ClientTest extends TestCase
             'prefixDefault'=>'/other/prefix/'
         ]);
 
-        $client->registerOrder('eee-eee-eee', 1200, 'https://github.com/voronkovich/sberbank-acquiring-client', ['currency' => 330]);
+        $client->registerOrder('eee-eee-eee', 1200, 'https://github.com/gruzoveek/sberbank-acquiring-client', ['currency' => 330]);
     }
 
     public function testRegisterANewPreAuthorizedOrder()
@@ -277,7 +275,7 @@ class ClientTest extends TestCase
             '/payment/rest/registerPreAuth.do',
             'POST',
             [ 'Content-Type' => 'application/x-www-form-urlencoded' ],
-            'currency=330&orderNumber=eee-eee-eee&amount=1200&returnUrl=https%3A%2F%2Fgithub.com%2Fvoronkovich%2Fsberbank-acquiring-client&token=abrakadabra'
+            'currency=330&orderNumber=eee-eee-eee&amount=1200&returnUrl=https%3A%2F%2Fgithub.com%2Fgruzoveek%2Fsberbank-acquiring-client&token=abrakadabra'
         );
 
         $client = new Client([
@@ -285,7 +283,7 @@ class ClientTest extends TestCase
             'httpClient' => $httpClient,
         ]);
 
-        $client->registerOrderPreAuth('eee-eee-eee', 1200, 'https://github.com/voronkovich/sberbank-acquiring-client', ['currency' => 330]);
+        $client->registerOrderPreAuth('eee-eee-eee', 1200, 'https://github.com/gruzoveek/sberbank-acquiring-client', ['currency' => 330]);
     }
 
     public function testRegistersANewCreditOrder()
@@ -294,7 +292,7 @@ class ClientTest extends TestCase
             '/sbercredit/register.do',
             'POST',
             [ 'Content-Type' => 'application/x-www-form-urlencoded' ],
-            'currency=643&orderNumber=aaa-aaa-aaa&amount=50000&returnUrl=https%3A%2F%2Fgithub.com%2Fvoronkovich%2Fsberbank-acquiring-client&token=secret'
+            'currency=643&orderNumber=aaa-aaa-aaa&amount=50000&returnUrl=https%3A%2F%2Fgithub.com%2Fgruzoveek%2Fsberbank-acquiring-client&token=secret'
         );
 
         $client = new Client([
@@ -302,7 +300,7 @@ class ClientTest extends TestCase
             'httpClient' => $httpClient,
         ]);
 
-        $client->registerCreditOrder('aaa-aaa-aaa', 50000, 'https://github.com/voronkovich/sberbank-acquiring-client', [
+        $client->registerCreditOrder('aaa-aaa-aaa', 50000, 'https://github.com/gruzoveek/sberbank-acquiring-client', [
             'currency' => 643
         ]);
     }
@@ -313,7 +311,7 @@ class ClientTest extends TestCase
             '/custom/credit/register.do',
             'POST',
             [ 'Content-Type' => 'application/x-www-form-urlencoded' ],
-            'currency=643&orderNumber=aaa-aaa-aaa&amount=50000&returnUrl=https%3A%2F%2Fgithub.com%2Fvoronkovich%2Fsberbank-acquiring-client&token=secret'
+            'currency=643&orderNumber=aaa-aaa-aaa&amount=50000&returnUrl=https%3A%2F%2Fgithub.com%2Fgruzoveek%2Fsberbank-acquiring-client&token=secret'
         );
 
         $client = new Client([
@@ -322,7 +320,7 @@ class ClientTest extends TestCase
             'prefixCredit'=> '/custom/credit/',
         ]);
 
-        $client->registerCreditOrder('aaa-aaa-aaa', 50000, 'https://github.com/voronkovich/sberbank-acquiring-client', [
+        $client->registerCreditOrder('aaa-aaa-aaa', 50000, 'https://github.com/gruzoveek/sberbank-acquiring-client', [
             'currency' => 643
         ]);
     }
@@ -333,7 +331,7 @@ class ClientTest extends TestCase
             '/sbercredit/registerPreAuth.do',
             'POST',
             [ 'Content-Type' => 'application/x-www-form-urlencoded' ],
-            'currency=643&orderNumber=aaa-aaa-aaa&amount=50000&returnUrl=https%3A%2F%2Fgithub.com%2Fvoronkovich%2Fsberbank-acquiring-client&token=secret'
+            'currency=643&orderNumber=aaa-aaa-aaa&amount=50000&returnUrl=https%3A%2F%2Fgithub.com%2Fgruzoveek%2Fsberbank-acquiring-client&token=secret'
         );
 
         $client = new Client([
@@ -341,7 +339,7 @@ class ClientTest extends TestCase
             'httpClient' => $httpClient,
         ]);
 
-        $client->registerCreditOrderPreAuth('aaa-aaa-aaa', 50000, 'https://github.com/voronkovich/sberbank-acquiring-client', [
+        $client->registerCreditOrderPreAuth('aaa-aaa-aaa', 50000, 'https://github.com/gruzoveek/sberbank-acquiring-client', [
             'currency' => 643
         ]);
     }

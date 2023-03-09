@@ -1,28 +1,28 @@
 {
-    "name": "voronkovich/sberbank-acquiring-client",
+    "name": "gruzoveek/sberbank-acquiring-client",
     "type": "library",
     "description": "Client for working with Sberbank's acquiring REST API",
     "keywords": ["sberbank", "acquiring", "credit card", "client"],
-    "homepage": "https://github.com/voronkovich/sberbank-acquiring-client",
+    "homepage": "https://github.com/gruzoveek/sberbank-acquiring-client",
     "license": "MIT",
     "authors": [
         {
-            "name": "Oleg Voronkovich",
-            "email": "oleg-voronkovich@yandex.ru"
+            "name": "gruzoveek",
+            "email": "gruzoveek@yandex.ru"
         }
     ],
     "require": {
-        "php": "^7.1||^8",
+        "php": "^8.0",
         "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
-            "Voronkovich\\SberbankAcquiring\\": "src/"
+            "gruzoveek\\SberbankAcquiring\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Voronkovich\\SberbankAcquiring\\Tests\\": "tests/"
+            "gruzoveek\\SberbankAcquiring\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "stable"

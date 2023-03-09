@@ -2,30 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Voronkovich\SberbankAcquiring\HttpClient;
+namespace Gruzoveek\SberbankAcquiring\HttpClient;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
-/**
- * Adapter for the PSR-18 compatible HTTP client.
- *
- * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
- * @see https://www.php-fig.org/psr/psr-18/
- */
+
 class Psr18Adapter implements HttpClientInterface
 {
-    private $client;
-    private $requestFactory;
-    private $streamFactory;
-
-    public function __construct(ClientInterface $client, RequestFactoryInterface $requestFactory, StreamFactoryInterface $streamFactory)
-    {
-        $this->client = $client;
-        $this->requestFactory = $requestFactory;
-        $this->streamFactory = $streamFactory;
-    }
+    public function __construct(private ClientInterface $client, private RequestFactoryInterface $requestFactory, private StreamFactoryInterface $streamFactory) {}
 
     public function request(string $uri, string $method = HttpClientInterface::METHOD_GET, array $headers = [], string $data = ''): array
     {

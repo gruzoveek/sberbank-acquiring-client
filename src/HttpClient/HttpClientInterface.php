@@ -2,19 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Voronkovich\SberbankAcquiring\HttpClient;
+namespace Gruzoveek\SberbankAcquiring\HttpClient;
 
-use Voronkovich\SberbankAcquiring\Exception\NetworkException;
+use Gruzoveek\SberbankAcquiring\Exception\NetworkException;
 
-/**
- * Simple HTTP client interface.
- *
- * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
- */
+
 interface HttpClientInterface
 {
-    const METHOD_GET = 'GET';
-    const METHOD_POST = 'POST';
+    public const METHOD_GET = 'GET';
+    public const METHOD_POST = 'POST';
 
     /**
      * Send an HTTP request.

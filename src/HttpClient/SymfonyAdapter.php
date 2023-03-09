@@ -2,24 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Voronkovich\SberbankAcquiring\HttpClient;
+namespace Gruzoveek\SberbankAcquiring\HttpClient;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface as ClientInterface;
 
-/**
- * Adapter for the Symfony's HTTP client.
- *
- * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
- * @see https://symfony.com/doc/current/http_client.html
- */
+
 class SymfonyAdapter implements HttpClientInterface
 {
-    private $client;
-
-    public function __construct(ClientInterface $client)
-    {
-        $this->client = $client;
-    }
+    public function __construct(private ClientInterface $client) {}
 
     public function request(string $uri, string $method = HttpClientInterface::METHOD_GET, array $headers = [], string $data = ''): array
     {

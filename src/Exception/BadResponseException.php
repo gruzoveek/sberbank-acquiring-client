@@ -2,17 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Voronkovich\SberbankAcquiring\Exception;
+namespace Gruzoveek\SberbankAcquiring\Exception;
 
-/**
- * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
- */
+
 class BadResponseException extends SberbankAcquiringException
 {
-    /**
-     * @var string
-     */
-    private $response;
+    private string $response;
 
     public function getResponse(): ?string
     {

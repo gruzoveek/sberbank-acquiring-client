@@ -2,14 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Voronkovich\SberbankAcquiring;
+namespace Gruzoveek\SberbankAcquiring;
 
-/**
- * Helper class with currencies codes (ISO 4217).
- *
- * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
- * @see https://en.wikipedia.org/wiki/ISO_4217
- */
+
 class Currency
 {
     const EUR = 978;

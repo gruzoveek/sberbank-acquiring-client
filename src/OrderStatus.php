@@ -2,13 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Voronkovich\SberbankAcquiring;
+namespace Gruzoveek\SberbankAcquiring;
 
-/**
- * Order statuses.
- *
- * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
- */
+
 class OrderStatus
 {
     // An order was successfully registered, but is'nt paid yet

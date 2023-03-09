@@ -2,13 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Voronkovich\SberbankAcquiring\Exception;
+namespace Gruzoveek\SberbankAcquiring\Exception;
 
-/**
- * Base exception.
- *
- * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
- */
-class SberbankAcquiringException extends \Exception
+use Exception;
+
+
+class SberbankAcquiringException extends Exception
 {
 }

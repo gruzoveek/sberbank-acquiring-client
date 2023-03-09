@@ -2,126 +2,59 @@
 
 declare(strict_types=1);
 
-namespace Voronkovich\SberbankAcquiring;
+namespace Gruzoveek\SberbankAcquiring;
 
-use Voronkovich\SberbankAcquiring\Exception\ActionException;
-use Voronkovich\SberbankAcquiring\Exception\BadResponseException;
-use Voronkovich\SberbankAcquiring\Exception\NetworkException;
-use Voronkovich\SberbankAcquiring\Exception\ResponseParsingException;
-use Voronkovich\SberbankAcquiring\HttpClient\CurlClient;
-use Voronkovich\SberbankAcquiring\HttpClient\HttpClientInterface;
+use Gruzoveek\SberbankAcquiring\Exception\ActionException;
+use Gruzoveek\SberbankAcquiring\Exception\BadResponseException;
+use Gruzoveek\SberbankAcquiring\Exception\NetworkException;
+use Gruzoveek\SberbankAcquiring\Exception\ResponseParsingException;
+use Gruzoveek\SberbankAcquiring\HttpClient\CurlClient;
+use Gruzoveek\SberbankAcquiring\HttpClient\HttpClientInterface;
 
-/**
- * Client for working with Sberbanks's aquiring REST API.
- *
- * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
- * @see https://securepayments.sberbank.ru/wiki/doku.php/integration:api:start#%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81_rest
- */
+
 class Client
 {
-    const ACTION_SUCCESS = 0;
+    public const ACTION_SUCCESS = 0;
 
-    const API_URI            = 'https://securepayments.sberbank.ru';
-    const API_URI_TEST       = 'https://3dsec.sberbank.ru';
-    const API_PREFIX_DEFAULT = '/payment/rest/';
-    const API_PREFIX_CREDIT  = '/sbercredit/';
-    const API_PREFIX_APPLE   = '/payment/applepay/';
-    const API_PREFIX_GOOGLE  = '/payment/google/';
-    const API_PREFIX_SAMSUNG = '/payment/samsung/';
+    public const API_URI            = 'https://securepayments.sberbank.ru';
+    public const API_URI_TEST       = 'https://3dsec.sberbank.ru';
+    public const API_PREFIX_DEFAULT = '/payment/rest/';
+    public const API_PREFIX_CREDIT  = '/sbercredit/';
+    public const API_PREFIX_APPLE   = '/payment/applepay/';
+    public const API_PREFIX_GOOGLE  = '/payment/google/';
+    public const API_PREFIX_SAMSUNG = '/payment/samsung/';
 
-    /**
-     * @var string
-     */
-    private $userName;
 
-    /**
-     * @var string
-     */
-    private $password;
+    private string $userName;
 
-    /**
-     * Authentication token.
-     *
-     * @var string
-     */
-    private $token;
+    private string $password;
 
-    /**
-     * Currency code in ISO 4217 format.
-     *
-     * @var int
-     */
-    private $currency;
+    private string $token;
 
-    /**
-     * A language code in ISO 639-1 format ('en', 'ru' and etc.).
-     *
-     * @var string
-     */
-    private $language;
+    private int $currency;
 
-    /**
-     * An API uri.
-     *
-     * @var string
-     */
-    private $apiUri;
+    private string $language;
 
-    /**
-     * Default API endpoints prefix.
-     *
-     * @var string
-     */
-    private $prefixDefault;
+    private string $apiUri;
 
-    /**
-     * Credit API endpoints prefix.
-     *
-     * @var string
-     */
-    private $prefixCredit;
+    private string $prefixDefault;
 
-    /**
-     * Apple Pay endpoint prefix.
-     *
-     * @var string
-     */
-    private $prefixApple;
+    private string $prefixCredit;
 
-    /**
-     * Google Pay endpoint prefix.
-     *
-     * @var string
-     */
-    private $prefixGoogle;
+    private string $prefixApple;
 
-    /**
-     * Samsung Pay endpoint prefix.
-     *
-     * @var string
-     */
-    private $prefixSamsung;
+    private string $prefixGoogle;
 
-    /**
-     * SBP QR endpoint prefix.
-     *
-     * @var string
-     */
-    private $prefixSbpQr;
+    private string $prefixSamsung;
 
-    /**
-     * An HTTP method.
-     *
-     * @var string
-     */
-    private $httpMethod = HttpClientInterface::METHOD_POST;
+    private string $prefixSbpQr;
 
-    private $dateFormat = 'YmdHis';
+    private string $httpMethod = HttpClientInterface::METHOD_POST;
 
-    /**
-     * @var HttpClientInterface
-     */
-    private $httpClient;
+    private string $dateFormat = 'YmdHis';
+
+    private HttpClientInterface $httpClient;
+
 
     public function __construct(array $options = [])
     {
@@ -217,9 +150,9 @@ class Client
      *
      * @return array A server's response
      */
-    public function registerOrder($orderId, int $amount, string $returnUrl, array $data = []): array
+    public function registerOrder($orderId, int $amount, string $returnUrl, string $failUrl = '', array $data = []): array
     {
-        return $this->doRegisterOrder($orderId, $amount, $returnUrl, $data, $this->prefixDefault . 'register.do');
+        return $this->doRegisterOrder($orderId, $amount, $returnUrl, $failUrl, $data, $this->prefixDefault . 'register.do');
     }
 
     /**
@@ -236,7 +169,7 @@ class Client
      */
     public function registerOrderPreAuth($orderId, int $amount, string $returnUrl, array $data = []): array
     {
-        return $this->doRegisterOrder($orderId, $amount, $returnUrl, $data, $this->prefixDefault . 'registerPreAuth.do');
+        return $this->doRegisterOrder($orderId, $amount, $returnUrl, $failUrl = '', $data, $this->prefixDefault . 'registerPreAuth.do');
     }
 
     /**
@@ -253,7 +186,7 @@ class Client
      */
     public function registerCreditOrder($orderId, int $amount, string $returnUrl, array $data = []): array
     {
-        return $this->doRegisterOrder($orderId, $amount, $returnUrl, $data, $this->prefixCredit . 'register.do');
+        return $this->doRegisterOrder($orderId, $amount, $returnUrl, $failUrl = '', $data, $this->prefixCredit . 'register.do');
     }
 
     /**
@@ -268,14 +201,17 @@ class Client
      */
     public function registerCreditOrderPreAuth($orderId, int $amount, string $returnUrl, array $data = []): array
     {
-        return $this->doRegisterOrder($orderId, $amount, $returnUrl, $data, $this->prefixCredit . 'registerPreAuth.do');
+        return $this->doRegisterOrder($orderId, $amount, $returnUrl, $failUrl = '', $data, $this->prefixCredit . 'registerPreAuth.do');
     }
 
-    private function doRegisterOrder($orderId, int $amount, string $returnUrl, array $data = [], $method = 'register.do'): array
+    private function doRegisterOrder($orderId, int $amount, string $returnUrl, string $failUrl = '', array $data = [], $method = 'register.do'): array
     {
         $data['orderNumber'] = $orderId;
         $data['amount']      = $amount;
         $data['returnUrl']   = $returnUrl;
+        if (!empty($failUrl)) {
+            $data['failUrl'] = $failUrl;
+        }
 
         if (!isset($data['currency']) && null !== $this->currency) {
             $data['currency'] = $this->currency;
@@ -286,7 +222,7 @@ class Client
                 throw new \InvalidArgumentException('The "jsonParams" parameter must be an array.');
             }
 
-            $data['jsonParams'] = json_encode($data['jsonParams']);
+            $data['jsonParams'] = json_encode(...$data['jsonParams']);
         }
 
         if (isset($data['orderBundle']) && is_array($data['orderBundle'])) {
@@ -463,7 +399,7 @@ class Client
             $data['transactionStates'] = $allowedStatuses;
         }
 
-        $data['transactionStates'] = array_map('Voronkovich\SberbankAcquiring\OrderStatus::statusToString', $data['transactionStates']);
+        $data['transactionStates'] = array_map('Gruzoveek\SberbankAcquiring\OrderStatus::statusToString', $data['transactionStates']);
 
         if (isset($data['merchants'])) {
             if (!is_array($data['merchants'])) {
