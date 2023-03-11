@@ -47,7 +47,7 @@ class Client
 
     private string $prefixSamsung;
 
-    private string $prefixSbpQr;
+    private ?string $prefixSbpQr;
 
     private string $httpMethod = HttpClientInterface::METHOD_POST;
 
