@@ -29,11 +29,11 @@ class Client
 
     private string $password;
 
-    private string $token;
+    private ?string $token = null;
 
-    private ?int $currency;
+    private ?int $currency = null;
 
-    private ?string $language;
+    private ?string $language = null;
 
     private string $apiUri;
 
@@ -47,7 +47,7 @@ class Client
 
     private string $prefixSamsung;
 
-    private ?string $prefixSbpQr;
+    private ?string $prefixSbpQr = null;
 
     private string $httpMethod = HttpClientInterface::METHOD_POST;
 
