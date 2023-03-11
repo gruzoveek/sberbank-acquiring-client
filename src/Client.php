@@ -31,9 +31,9 @@ class Client
 
     private string $token;
 
-    private int $currency;
+    private ?int $currency;
 
-    private string $language;
+    private ?string $language;
 
     private string $apiUri;
 
