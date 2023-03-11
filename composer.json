@@ -17,12 +17,12 @@
     },
     "autoload": {
         "psr-4": {
-            "gruzoveek\\SberbankAcquiring\\": "src/"
+            "Gruzoveek\\SberbankAcquiring\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "gruzoveek\\SberbankAcquiring\\Tests\\": "tests/"
+            "Gruzoveek\\SberbankAcquiring\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "stable"

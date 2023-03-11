@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace gruzoveek\SberbankAcquiring\Tests;
+namespace Gruzoveek\SberbankAcquiring\Tests;
 
 use PHPUnit\Framework\TestCase;
-use gruzoveek\SberbankAcquiring\Client;
-use gruzoveek\SberbankAcquiring\Exception\ActionException;
-use gruzoveek\SberbankAcquiring\Exception\BadResponseException;
-use gruzoveek\SberbankAcquiring\Exception\ResponseParsingException;
-use gruzoveek\SberbankAcquiring\HttpClient\HttpClientInterface;
+use Gruzoveek\SberbankAcquiring\Client;
+use Gruzoveek\SberbankAcquiring\Exception\ActionException;
+use Gruzoveek\SberbankAcquiring\Exception\BadResponseException;
+use Gruzoveek\SberbankAcquiring\Exception\ResponseParsingException;
+use Gruzoveek\SberbankAcquiring\HttpClient\HttpClientInterface;
 
 
 class ClientTest extends TestCase
