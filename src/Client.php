@@ -226,7 +226,7 @@ class Client
         }
 
         if (isset($data['orderBundle']) && is_array($data['orderBundle'])) {
-            $data['orderBundle'] = \json_encode($data['orderBundle']);
+            $data['orderBundle'] = json_encode($data['orderBundle'], JSON_UNESCAPED_UNICODE);
         }
 
         return $this->execute($method, $data);
@@ -658,10 +658,10 @@ class Client
                 $data['userName'] = $this->userName;
                 $data['password'] = $this->password;
             }
-            $data = \http_build_query($data, '', '&');
+            $data = http_build_query($data, '', '&');
         } else {
             $headers['Content-Type'] = 'application/json';
-            $data = \json_encode($data);
+            $data = json_encode($data, JSON_UNESCAPED_UNICODE);
             $method = HttpClientInterface::METHOD_POST;
         }
 
