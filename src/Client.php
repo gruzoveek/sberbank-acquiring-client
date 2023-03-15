@@ -222,7 +222,7 @@ class Client
                 throw new \InvalidArgumentException('The "jsonParams" parameter must be an array.');
             }
 
-            $data['jsonParams'] = json_encode(...$data['jsonParams']);
+            $data['jsonParams'] = mb_substr(json_encode($data['jsonParams'], JSON_UNESCAPED_UNICODE), 1,-1);
         }
 
         if (isset($data['orderBundle']) && is_array($data['orderBundle'])) {
