@@ -221,8 +221,6 @@ class Client
             if (!is_array($data['jsonParams'])) {
                 throw new \InvalidArgumentException('The "jsonParams" parameter must be an array.');
             }
-
-            $data['jsonParams'] = mb_substr(json_encode($data['jsonParams'], JSON_UNESCAPED_UNICODE), 1,-1);
         }
 
         if (isset($data['orderBundle']) && is_array($data['orderBundle'])) {
@@ -646,6 +644,10 @@ class Client
 
         if (!isset($data['language']) && null !== $this->language) {
             $data['language'] = $this->language;
+        }
+
+        if (isset($data['jsonParams'])) {
+            $data['jsonParams'] = mb_substr(json_encode($data['jsonParams'], JSON_UNESCAPED_UNICODE), 1,-1);
         }
 
         $method = $this->httpMethod;
