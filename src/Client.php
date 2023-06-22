@@ -647,7 +647,7 @@ class Client
         }
 
         if (isset($data['jsonParams'])) {
-            $data['jsonParams'] = mb_substr(json_encode($data['jsonParams'], JSON_UNESCAPED_UNICODE), 1,-1);
+            $data['jsonParams'] = json_encode($data['jsonParams'], JSON_UNESCAPED_UNICODE);
         }
 
         $method = $this->httpMethod;
